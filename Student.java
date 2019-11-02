@@ -1,19 +1,12 @@
-package com.example.burrisboard;
+package com.example.schoolfrontend;
 
-import java.util.LinkedList;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class Student
-{
-    LinkedList<Parent> parents;
-    LinkedList<Class> courses;
-
-    public static void requestLink(Parent parent)
-    {
-
-    }
-
-    public static void acceptLinkRequest(Parent parent)
-    {
-
+public class Student extends AppCompatActivity {
+    /* access modifiers changed from: protected */
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView((int) C0262R.layout.activity_student);
     }
 }
