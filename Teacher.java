@@ -7,6 +7,6 @@ public class Teacher extends AppCompatActivity {
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0262R.layout.activity_teacher);
+        setContentView((int) com.example.schoolfrontend.C0262R.layout.activity_teacher);
     }
 }
