@@ -8,5 +8,6 @@ SHSU COSC 4319 Project, Fall 2019
  - Brandon Gladwin
  - Hatan Hontol
  - Deepesh Karki
+ - John Karki
  - Dean Morgan-Brown
  - Mari Williams
