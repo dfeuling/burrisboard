@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 
 //Represents all documents, Parent for all potential assignment types
 //Dependencies: User, bFile

@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 
 //Burrisboard compatible file
 //Dependencies: None

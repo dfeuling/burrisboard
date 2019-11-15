@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 
 import java.util.LinkedList;
 //Represents a class, taught by a teacher, in a school
@@ -6,11 +6,10 @@ import java.util.LinkedList;
 //Dependents: Announcement, Teacher, Student
 class Class
 {
-    Class(String n, int num, School s, Teacher t, int g)
+    Class(String n, int num, Teacher t, int g)
     {
         this.name = n;
         this.sectionNumber = num;
-        this.school = s;
         this.teacher = t;
         this.gradeLevel = g;
     }
@@ -20,7 +19,6 @@ class Class
 
     String name;
     int sectionNumber;
-    School school;
     Teacher teacher;
     int gradeLevel;
     LinkedList<Student> studentRoster;

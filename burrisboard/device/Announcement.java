@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 import java.util.Date;
 
 //Supports a Teacher's announcement data and functions

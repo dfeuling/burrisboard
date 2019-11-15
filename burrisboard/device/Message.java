@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 
 //Represents messages between users
 //Dependencies: User, Document

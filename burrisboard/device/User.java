@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 
 //Super class for every possible registered user type of the application
 //Dependencies: Document

@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 
 //Represents an assignment
 //Dependencies: Document, Announcement

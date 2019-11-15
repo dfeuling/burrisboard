@@ -1,4 +1,4 @@
-package burrisboard.server;
+package burrisboard.device;
 import java.util.LinkedList;
 
 //All parent personas
