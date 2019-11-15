@@ -1,7 +1,9 @@
 package burrisboard.server;
 
+import java.io.Serializable;
+
 //Container for communication between client, server, and database, with supporting operations
-class bPackage
+class bPackage implements Serializable
 {
     bPackage(String op, User u1, User u2, Document d, Message m, bFile f)
     {
