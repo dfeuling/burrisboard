@@ -48,7 +48,8 @@ class Engine
                         System.out.println("Data receipt number " + x + " for this up-time.");
                         x++;
                     }
-                    System.out.println(clientInput.toString());
+                    bPackage p = (bPackage)clientInput;
+                    System.out.println(p.opCode);
                     clientInput = null;
                     } catch (Exception e){System.out.println("Error with client connection: Error follows: " + e);}
             }
