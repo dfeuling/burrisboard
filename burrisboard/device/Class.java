@@ -1,10 +1,11 @@
 package burrisboard.device;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 //Represents a class, taught by a teacher, in a school
 //Dependencies: School, Teacher, Student, java.util.LinkedList
 //Dependents: Announcement, Teacher, Student
-class Class
+class Class implements Serializable
 {
     Class(String n, int num, Teacher t, int g)
     {

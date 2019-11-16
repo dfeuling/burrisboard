@@ -1,4 +1,6 @@
 package burrisboard.server;
+
+import burrisboard.device.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,15 +43,16 @@ class Engine
                     ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
                     ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
                     Object clientInput = in.readObject();
+                    //ObjectInputStream.GetField gf = in.readFields();
+                    //System.out.println(gf.toString());
 
                     if (clientInput != null) {
                         //out.println("Burrisboard server has recieved your professional grade information. We're in good shape.");
-                        System.out.println("Detected input from client: " + clientInput);
+                        System.out.println("Detected input from client: " + clientInput.toString());
                         System.out.println("Data receipt number " + x + " for this up-time.");
                         x++;
                     }
-                    bPackage p = (bPackage)clientInput;
-                    System.out.println(p.opCode);
+
                     clientInput = null;
                     } catch (Exception e){System.out.println("Error with client connection: Error follows: " + e);}
             }

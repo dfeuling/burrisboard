@@ -1,10 +1,11 @@
 package burrisboard.device;
+import java.io.Serializable;
 import java.util.Date;
 
 //Supports a Teacher's announcement data and functions
 //Dependencies: Class, java.util.Date
 //Dependents: Document
-class Announcement
+class Announcement implements Serializable
 {
     Announcement(Date d, Class c, String b)
     {

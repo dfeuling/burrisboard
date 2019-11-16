@@ -1,9 +1,11 @@
 package burrisboard.device;
 
+import java.io.Serializable;
+
 //Super class for every possible registered user type of the application
 //Dependencies: Document
 //Dependents: Message, Parent, Student, Teacher, Document
-class User
+class User implements Serializable
 {
 
     User(String uN, String uP, int uID, String uF, String uL)

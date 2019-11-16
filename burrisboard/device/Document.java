@@ -1,9 +1,11 @@
 package burrisboard.device;
 
+import java.io.Serializable;
+
 //Represents all documents, Parent for all potential assignment types
 //Dependencies: User, bFile
 //Dependents: Announcement, Message, User
-class Document
+class Document implements Serializable
 {
     Document(User u, bFile f)
     {
