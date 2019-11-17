@@ -42,18 +42,23 @@ class Engine
                     System.out.println("Client detection established.");
                     ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
                     ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-                    Object clientInput = in.readObject();
-                    //ObjectInputStream.GetField gf = in.readFields();
-                    //System.out.println(gf.toString());
+                    bPackage clientInput = (bPackage)in.readObject();
 
-                    if (clientInput != null) {
+                    //if (clientInput != null) {
                         //out.println("Burrisboard server has recieved your professional grade information. We're in good shape.");
                         System.out.println("Detected input from client: " + clientInput.toString());
                         System.out.println("Data receipt number " + x + " for this up-time.");
                         x++;
-                    }
+                        System.out.println(clientInput.getOpCode());
+                    //}
 
-                    clientInput = null;
+                    //login
+
+
+                    //send back result
+                    //close socket
+
+                    //clientInput = null;
                     } catch (Exception e){System.out.println("Error with client connection: Error follows: " + e);}
             }
         } catch (Exception e) {System.out.println("Error with setting server connection. Error follows: " + e);}

@@ -17,10 +17,63 @@ public class bPackage implements Serializable
 
    public bPackage()
     { }
+
     String opCode;
     User user1;
     User user2;
     Document doc;
     Message message;
     bFile File;
+    boolean result;
+    String errorMessage;
+
+    public String getOpCode()
+    {
+        return this.opCode;
+    }
+
+    public User getUser1()
+    {
+        return this.user1;
+    }
+
+    public User getUser2()
+    {
+        return this.user2;
+    }
+
+    public Document getDoc()
+    {
+        return this.doc;
+    }
+
+    public Message getMessage()
+    {
+        return this.message;
+    }
+
+    public bFile getbFile()
+    {
+        return this.File;
+    }
+
+    public boolean getResult()
+    {
+        return this.result;
+    }
+
+    public String getErrorMessage()
+    {
+        return this.errorMessage;
+    }
+
+    public void setResult(boolean r)
+    {
+        this.result = r;
+    }
+
+    public void setErrorMessage(String s)
+    {
+        this.errorMessage = s;
+    }
 }
