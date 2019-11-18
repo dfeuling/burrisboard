@@ -1,9 +1,11 @@
 package burrisboard.device;
 
+import java.io.Serializable;
+
 //Represents messages between users
 //Dependencies: User, Document
 //Dependents: User
-class Message
+class Message implements Serializable
 {
     Message(User s, User r, String su, String b, Document a)
     {

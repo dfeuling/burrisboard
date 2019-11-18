@@ -17,8 +17,7 @@ class SQLBridge
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/burrisboard", "server"+ID, "ROBOTS!");
         System.out.println("Successfully connected to the database.");
 
-        Statement statement = con.createStatement();
+        this.statement = con.createStatement();
         //statement.executeUpdate("INSERT INTO burrisboard.users VALUES (0001, 'dfeul', 'password', 'Daniel', 'Feuling')");
-        ResultSet resultset = null;
     }
 }
