@@ -24,7 +24,7 @@ public class bPackage implements Serializable
     Document doc;
     Message message;
     bFile File;
-    boolean result;
+    boolean result = false;
     String errorMessage;
 
     public String getOpCode()

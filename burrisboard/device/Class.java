@@ -24,12 +24,12 @@ class Class implements Serializable
     int gradeLevel;
     LinkedList<Student> studentRoster;
 
-    private static void addStudent(Student studentToBeAdded)
+    public void addStudent(Student studentToBeAdded)
     {
         //add a student to the class
     }
 
-    private static void dropStudent(Student studentToBeDropped)
+    public void dropStudent(Student studentToBeDropped)
     {
         //drop a student from the class
     }

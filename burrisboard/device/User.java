@@ -5,7 +5,7 @@ import java.io.Serializable;
 //Super class for every possible registered user type of the application
 //Dependencies: Document
 //Dependents: Message, Parent, Student, Teacher, Document
-class User implements Serializable
+public class User implements Serializable
 {
 
     User(String uN, String uP, int uID, String uF, String uL)
@@ -26,19 +26,54 @@ class User implements Serializable
     String userFirstName;
     String userLastName;
 
-    private static void viewDoc(Document docToView)
+    public String getUserName()
+    {
+        return this.userName;
+    }
+
+    public String getUserPassword()
+    {
+        return this.userPassword;
+    }
+
+    public int getUserID()
+    {
+        return this.userID;
+    }
+
+    public String getUserFirstName()
+    {
+        return this.userFirstName;
+    }
+
+    public String getUserLastName()
+    {
+        return this.userLastName;
+    }
+
+    private void viewDoc(Document docToView)
     {
         //retrieve document information, create, display
         //upon close, deconstruct
     }
 
-    private static void modifyAccount() //DESIGN MODIFICATION 6: Parameter not needed
+    private void modifyAccount() //DESIGN MODIFICATION 6: Parameter not needed
     {
         //change account details
     }
 
-    private static void message(User userToMessage)
+    private void message(User userToMessage)
     {
         //send a message from this user as the sender and userToMessage as recipient
+    }
+
+    public void login()
+    {
+
+    }
+
+    public void createAccount()
+    {
+
     }
 }

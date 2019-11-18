@@ -10,12 +10,12 @@ class Student extends User
     LinkedList<Parent> parents;
     LinkedList<Class> courses;
 
-    private static void requestLink(Parent parentToLinkTo)
+    public void requestLink(Parent parentToLinkTo)
     {
         //student's side of authentication handshake to link to a parent - request
     }
 
-    private static void acceptLinkRequest(Parent parentToLinkTo)
+    public void acceptLinkRequest(Parent parentToLinkTo)
     {
         //student's side of authentication handshake to link to a parent - accept
     }

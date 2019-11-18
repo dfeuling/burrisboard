@@ -21,7 +21,7 @@ class Announcement implements Serializable
     Class bbclass; //DESIGN MODIFICATION 1: Java reserves 'class'
     String body;
 
-    private static void post(Class classToPostTo)
+    public void post(Class classToPostTo)
     {
         //send the announcement to the correct DB table for the given class
     }

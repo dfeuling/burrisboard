@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.*;
 import java.net.ServerSocket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 //main driver of the central processing module
 //intermediary between user and database
@@ -18,6 +20,7 @@ import java.net.ServerSocket;
 //outputs: requests from user
 class Engine
 {
+    static final int maxThreadCount = 5;
     //allocate thread pool
     //main loop
         //login count total
@@ -25,34 +28,25 @@ class Engine
 
     public static void main(String[] args)
     {
-        try {
-            SQLBridge.connect();
-        } catch (Exception e) {
-            System.out.println("Error with database connection. Error follows: " + e);
-        }
-
+        ExecutorService threadPool = Executors.newFixedThreadPool(maxThreadCount);
+        int currentThread = 0;
         try {
             ServerSocket serverSocket = new ServerSocket(3307);
             System.out.println("Server socket success.");
             int x = 1;
+            Runnable[] threadHolder = new Runnable[maxThreadCount];
             while(true)
             {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    System.out.println("Client detection established.");
-                    ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
-                    ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-                    bPackage clientInput = (bPackage)in.readObject();
-
-                    //if (clientInput != null) {
-                        //out.println("Burrisboard server has recieved your professional grade information. We're in good shape.");
-                        System.out.println("Detected input from client: " + clientInput.toString());
-                        System.out.println("Data receipt number " + x + " for this up-time.");
-                        x++;
-                        System.out.println(clientInput.getOpCode());
-                    //}
-
-                    //login
+                    //thread start
+                    threadHolder[currentThread] = new bTask(clientSocket,currentThread);
+                    threadPool.execute(threadHolder[currentThread]);
+                    //
+                    //System.out.println("Client detection established.");
+                    //ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
+                    //ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+                    //bPackage clientInput = (bPackage)in.readObject();
 
 
                     //send back result

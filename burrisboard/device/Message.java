@@ -24,19 +24,19 @@ class Message
     String body;
     Document attachment;
 
-    public static void delete()
+    public void delete()
     {
         //remove from any lists
         //deconstruct
         //remove from database
     }
 
-    public static void reply()
+    public void reply()
     {
         //create a new message with this message's sender as recipient
     }
 
-    public static void forward()
+    public void forward()
     {
         //create a new message with this message's body as the new body
     }

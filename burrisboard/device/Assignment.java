@@ -17,7 +17,7 @@ class Assignment extends Document
     int grade;
     int attempts;
 
-    private static void submit(Student submittingStudent, Announcement submittingTo)
+    public void submit(Student submittingStudent, Announcement submittingTo)
     {
         //submit the submitting student's assignment to the corresponding announcement that posted it
     }
