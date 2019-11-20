@@ -51,6 +51,31 @@ public class User implements Serializable
         return this.userLastName;
     }
 
+    public void setUserName(String s)
+    {
+        this.userName = s;
+    }
+
+    public void setUserPassword(String s)
+    {
+        this.userPassword = s;
+    }
+
+    public void setUserName(int i)
+    {
+        this.userID = i;
+    }
+
+    public void setUserFirstName(String s)
+    {
+        this.userFirstName = s;
+    }
+
+    public void setUserLastName(String s)
+    {
+        this.userLastName = s;
+    }
+
     private void viewDoc(Document docToView)
     {
         //retrieve document information, create, display

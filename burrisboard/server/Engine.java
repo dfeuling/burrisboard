@@ -20,7 +20,7 @@ class Engine
         try {
             ServerSocket serverSocket = new ServerSocket(3307);
             System.out.println("Server socket success.");
-            int recieved = 1;
+            int received = 1;
             Runnable[] threadHolder = new Runnable[maxThreadCount];
             while(true)
             {
@@ -29,8 +29,8 @@ class Engine
                     //thread start
                     threadHolder[currentThread] = new bTask(clientSocket,currentThread);
                     threadPool.execute(threadHolder[currentThread]);
-                    System.out.println("Data receipt number " + recieved + " for this uptime.");
-                    recieved++;
+                    System.out.println("Data receipt number " + received + " for this uptime.");
+                    received++;
                     currentThread++;
                     currentThread = currentThread % maxThreadCount;
                     } catch (Exception e){System.out.println("Error with client connection: Error follows: " + e);}

@@ -35,9 +35,12 @@ class bTask implements Runnable
             switch(clientInput.getOpCode())
             {
                 case "Login":
-                    bridge.resultSet = bridge.statement.executeQuery("SELECT First_Name FROM burrisboard.users WHERE pass = " + "\"" + clientInput.getUser1().getUserPassword() + "\"" + " and Username = "  + "\"" + clientInput.getUser1().getUserName() + "\"");
+                    bridge.resultSet = bridge.statement.executeQuery("SELECT * FROM burrisboard.users WHERE pass = " + "\"" + clientInput.getUser1().getUserPassword() + "\"" + " and Username = "  + "\"" + clientInput.getUser1().getUserName() + "\"");
                     if (bridge.resultSet.next())
+                    {
+                        
                         clientInput.setResult(true);
+                    }
                     else
                         clientInput.setErrorMessage("Incorrect credentials.");
                     break;

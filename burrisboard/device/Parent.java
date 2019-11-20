@@ -7,6 +7,23 @@ import java.util.LinkedList;
 class Parent extends User
 {
     LinkedList<Student> children;
+    boolean linked;
+
+    public LinkedList<Student> getChildren()
+    {
+        return this.children;
+    }
+
+    public void addStudent(Student s)
+    {
+        children.add(s);
+    }
+
+    public void addStudents(Student[] s, int i)
+    {
+        for (int x = 0; x < i; x++)
+            children.add(s[x]);
+    }
 
     public void requestLink(Student studentToLinkTo)
     {
