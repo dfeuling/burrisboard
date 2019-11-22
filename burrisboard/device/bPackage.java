@@ -67,6 +67,31 @@ public class bPackage implements Serializable
         return this.errorMessage;
     }
 
+    public void setOpCode(String s)
+    {
+        this.opCode = s;
+    }
+
+    public void setUser1(User u)
+    {
+        this.user1 = u;
+    }
+
+    public void setUser2(User u)
+    {
+        this.user2 = u;
+    }
+
+    public void setDocument(Document d)
+    {
+        this.doc = d;
+    }
+
+    public void setMessage(Message m)
+    {
+        this.message = m;
+    }
+
     public void setResult(boolean r)
     {
         this.result = r;

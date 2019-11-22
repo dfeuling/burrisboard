@@ -45,11 +45,12 @@ class bTask implements Runnable
                         clientInput.setErrorMessage("Incorrect credentials.");
                     break;
                 //necessary functions:
-                //create new login
-                //parent linking to student
+                //create new login -- "Create Login"
+                //login to existing account -- "Login"
+                //parent linking to student 
                 //student linking to parent
                 //teacher linking parent and student
-                //view a student's classes
+                //view a student's classes -- taken care of by login
                 //view one particular class's announcements
                 //view announcements for all classes where student is enrolled
                 //view document

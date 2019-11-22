@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class User implements Serializable
 {
 
-    User(String uN, String uP, int uID, String uF, String uL)
+    public User(String uN, String uP, int uID, String uF, String uL)
     {
         this.userName = uN;
         this.userPassword = uP;
@@ -17,7 +17,7 @@ public class User implements Serializable
         this.userLastName = uL;
     }
 
-    User()
+    public User()
     {}
 
     String userName;
@@ -61,10 +61,10 @@ public class User implements Serializable
         this.userPassword = s;
     }
 
-    public void setUserName(int i)
-    {
-        this.userID = i;
-    }
+    //public void setUserID(int i)
+    //{
+        //this.userID = i;
+    //}
 
     public void setUserFirstName(String s)
     {
