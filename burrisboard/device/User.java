@@ -7,6 +7,10 @@ import java.io.Serializable;
 //Dependents: Message, Parent, Student, Teacher, Document
 public class User implements Serializable
 {
+    enum userType
+    {
+        parent,student,teacher;
+    }
 
     public User(String uN, String uP, int uID, String uF, String uL)
     {
@@ -25,6 +29,7 @@ public class User implements Serializable
     int userID; //DESIGN MODIFICATION 5: int more conducive to ID numbers than String
     String userFirstName;
     String userLastName;
+    userType type;
 
     public String getUserName()
     {
@@ -51,6 +56,16 @@ public class User implements Serializable
         return this.userLastName;
     }
 
+    public userType getUserType()
+    {
+        return this.userType;
+    }
+
+    public void setUserType(String s)
+    {
+        this.userType = userType.s;
+    }
+
     public void setUserName(String s)
     {
         this.userName = s;
@@ -61,10 +76,10 @@ public class User implements Serializable
         this.userPassword = s;
     }
 
-    //public void setUserID(int i)
-    //{
-        //this.userID = i;
-    //}
+    public void setUserID(int i)
+    {
+        this.userID = i;
+    }
 
     public void setUserFirstName(String s)
     {

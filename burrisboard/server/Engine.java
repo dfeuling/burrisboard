@@ -37,4 +37,49 @@ class Engine
             }
         } catch (Exception e) {System.out.println("Error with setting server connection. Error follows: " + e);}
     }
+
+    static void Login(bTask task)
+    {
+        String query = "{?=CALL Login(?,?,?)"
+        task.bridge.statement = task.bridge.con.prepareCall(query);
+        statement.setString("username",clientInput.getUser1().getUserName());
+        statement.setString("password",clientInput.getUser1().getUserPassword());
+        statement.setBoolean("failure",task.bridge.getFailure());
+
+        task.bridge.resultSet = task.bridge.statement.executeQuery(query);
+    }
+
+    static synchronized void createParent(bTask task)
+    {
+        String query = "{?=CALL Login(?,?,?,?,?)"
+        task.bridge.statement = this.bridge.con.prepareCall(query);
+        statement.setString("username",clientInput.getUser1().getUserName());
+        statement.setString("password",clientInput.getUser1().getUserPassword());
+        statement.setString("first name", clientInput.getUser1.getUserFirstName());
+        statement.setString("last name", clientInput.getUser1.getUserLastName());
+        statement.setBoolean("failure",task.bridge.getFailure());
+    }
+
+    static synchronized void createStudent(bTask task)
+    {
+        String query = "{?=CALL Login(?,?,?,?,?)"
+        this.bridge.statement = this.bridge.con.prepareCall(query);
+        statement.setString("username",clientInput.getUser1().getUserName());
+        statement.setString("password",clientInput.getUser1().getUserPassword());
+        statement.setString("first name", clientInput.getUser1.getUserFirstName());
+        statement.setString("last name", clientInput.getUser1.getUserLastName());
+        statement.setBoolean("failure",task.bridge.getFailure());  
+    }
+
+    static synchronized void createTeacher(bTask task)
+    {
+        String query = "{?=CALL Login(?,?,?,?,?)"
+        this.bridge.statement = this.bridge.con.prepareCall(query);
+        statement.setString("username",clientInput.getUser1().getUserName());
+        statement.setString("password",clientInput.getUser1().getUserPassword());
+        statement.setString("first name", clientInput.getUser1.getUserFirstName());
+        statement.setString("last name", clientInput.getUser1.getUserLastName());
+        statement.setBoolean("failure",task.bridge.getFailure());  
+    }
+
 }

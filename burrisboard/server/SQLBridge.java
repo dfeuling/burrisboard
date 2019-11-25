@@ -9,7 +9,8 @@ class SQLBridge
     }
 
     int ID;
-    Statement statement;
+    boolean failure;
+    CallableStatement statement;
     ResultSet resultSet;
 
     void connect() throws Exception
@@ -19,5 +20,15 @@ class SQLBridge
 
         this.statement = con.createStatement();
         //statement.executeUpdate("INSERT INTO burrisboard.users VALUES (0001, 'dfeul', 'password', 'Daniel', 'Feuling')");
+    }
+
+    public void setFailure(int failure)
+    {
+        this.failure = failure;
+    }
+
+    public boolean getFailure()
+    {
+        return this.failure;
     }
 }
