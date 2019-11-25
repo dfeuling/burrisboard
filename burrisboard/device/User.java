@@ -58,12 +58,12 @@ public class User implements Serializable
 
     public userType getUserType()
     {
-        return this.userType;
+        return this.type;
     }
 
-    public void setUserType(String s)
+    public void setUserType(userType s)
     {
-        this.userType = userType.s;
+        this.type = s;
     }
 
     public void setUserName(String s)
