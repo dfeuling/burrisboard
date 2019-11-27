@@ -9,7 +9,6 @@ class SQLBridge
     }
 
     int ID;
-    boolean failure;
     CallableStatement cStatement;
     Statement statement;
     ResultSet resultSet;
@@ -21,15 +20,5 @@ class SQLBridge
         System.out.println("Successfully connected to the database.");
 
         this.statement = con.createStatement();
-    }
-
-    public void setFailure(boolean failure)
-    {
-        this.failure = failure;
-    }
-
-    public boolean getFailure()
-    {
-        return this.failure;
     }
 }

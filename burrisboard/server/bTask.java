@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import burrisboard.device.User;
 import burrisboard.device.bPackage;
 
 //Burrisboard Tasks, thread class for our application
@@ -40,12 +42,18 @@ class bTask implements Runnable
                     burrisboard.server.Engine.Login(this);
                     break;
 
-                case "Create New Login":
-                    bridge.resultSet = bridge.statement.executeQuery("SELECT * FROM burrisboard.users WHERE pass = " + "\"" + clientInput.getUser1().getUserPassword() + "\"" + " and Username = "  + "\"" + clientInput.getUser1().getUserName() + "\"");
-
-                        clientInput.setResult(true);
-
+                case "Create Account":
+                    if(clientInput.getUser1().getUserType() == User.Role.valueOf("Parent"))
+                        burrisboard.server.Engine.createParent(this);
+                    if(clientInput.getUser1().getUserType() == User.Role.valueOf("Student"))
+                        burrisboard.server.Engine.createStudent(this);
+                    if(clientInput.getUser1().getUserType() == User.Role.valueOf("Teacher"))
+                        burrisboard.server.Engine.createTeacher(this);
                     break;
+
+                 default:
+                     System.out.println("opCode not recognized by thread " + this.getID());
+
                 //necessary functions:
                 //create new login -- "Create Account"
                 //delete account - "Delete Account"
@@ -73,5 +81,10 @@ class bTask implements Runnable
             out.writeObject(clientInput);
 
         }catch(Exception e){System.out.println("Thread error occurred. Error follows: " + e);}
+    }
+
+    public int getID()
+    {
+        return this.ID;
     }
 }
