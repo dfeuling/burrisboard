@@ -10,19 +10,20 @@ class SQLBridge
 
     int ID;
     boolean failure;
-    CallableStatement statement;
+    CallableStatement cStatement;
+    Statement statement;
     ResultSet resultSet;
+    Connection con;
 
     void connect() throws Exception
     {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/burrisboard", "server"+ID, "ROBOTS!");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/burrisboard", "server"+ID, "ROBOTS!");
         System.out.println("Successfully connected to the database.");
 
         this.statement = con.createStatement();
-        //statement.executeUpdate("INSERT INTO burrisboard.users VALUES (0001, 'dfeul', 'password', 'Daniel', 'Feuling')");
     }
 
-    public void setFailure(int failure)
+    public void setFailure(boolean failure)
     {
         this.failure = failure;
     }

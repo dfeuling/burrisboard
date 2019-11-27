@@ -2,7 +2,7 @@ package burrisboard.device;
 
 import java.util.LinkedList;
 
-class Teacher extends User {
+public class Teacher extends User {
     LinkedList<Class> coursesTaught; //DESIGN MODIFICATION 7: Fixed typo (<Classes> -> <Class>)
     LinkedList<Student> studentsTaught;
 

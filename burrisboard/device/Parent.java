@@ -4,7 +4,7 @@ import java.util.LinkedList;
 //All parent personas
 //Dependencies: User, java.util.LinkedList;
 //Dependents: Message, Parent, Student, Teacher
-class Parent extends User
+public class Parent extends User
 {
     LinkedList<Student> children;
     boolean linked;

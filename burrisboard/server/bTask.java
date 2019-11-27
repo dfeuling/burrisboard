@@ -12,6 +12,7 @@ class bTask implements Runnable
     private Socket clientSocket;
     private int ID;
     SQLBridge bridge;
+    bPackage clientInput;
 
     public bTask(Socket socket, int threadID)
     {
@@ -27,7 +28,7 @@ class bTask implements Runnable
             ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
             //cast the incoming object as a bPackage
-            bPackage clientInput = (bPackage)in.readObject();
+            clientInput = (bPackage)in.readObject();
             System.out.println("Thread " + ID + " executing with operation " + clientInput.getOpCode());
             //SQLBridge object handles database connection and queries
             this.bridge = new SQLBridge(ID);
@@ -36,15 +37,7 @@ class bTask implements Runnable
             switch(clientInput.getOpCode())
             {
                 case "Login":
-                    bridge.resultSet = bridge.statement.executeQuery("SELECT * FROM burrisboard.users WHERE pass = " + "\"" + clientInput.getUser1().getUserPassword() + "\"" + " and Username = "  + "\"" + clientInput.getUser1().getUserName() + "\"");
-                    if (bridge.resultSet.next())
-                    {
-                        
-                        clientInput.setResult(true);
-                    }
-                    else
-                        clientInput.setErrorMessage("Incorrect credentials.");
-
+                    burrisboard.server.Engine.Login(this);
                     break;
 
                 case "Create New Login":
