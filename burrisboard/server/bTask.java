@@ -43,39 +43,26 @@ class bTask implements Runnable
                     break;
 
                 case "Create Account":
-                    if(clientInput.getUser1().getUserType() == User.Role.valueOf("Parent"))
-                        burrisboard.server.Engine.createParent(this);
-                    if(clientInput.getUser1().getUserType() == User.Role.valueOf("Student"))
-                        burrisboard.server.Engine.createStudent(this);
-                    if(clientInput.getUser1().getUserType() == User.Role.valueOf("Teacher"))
-                        burrisboard.server.Engine.createTeacher(this);
+                    burrisboard.server.Engine.createAccount(this);
                     break;
+
+                case "Modify Account":
+                    burrisboard.server.Engine.modifyAccount(this);
+                    break;
+
+                 /*case "Delete Account":
+                    burrisboard.server.Engine.deleteAccount(this);
+                    //delete from all tables based on user id
+                    break;
+                  */
+
+                 /*case "Link Parent to Student":
+                    burrisboard.server.Engine.linkParentToStudent(this);
+                 */
 
                  default:
                      System.out.println("opCode not recognized by thread " + this.getID());
 
-                //necessary functions:
-                //create new login -- "Create Account"
-                //delete account - "Delete Account"
-                //modify account - "Modify Account"
-                //login to existing account -- "Login"
-                //parent linking to student  -- "Link Parent to Student"
-                //student linking to parent -- "Link Student to Parent"
-                //teacher linking parent and student - "Teacher Link"
-                //unlink parent and student - "Teacher UnLink"
-                //view a student's classes -- taken care of by login
-                //view one particular class's announcements - "View All Announcements Class"
-                //view announcements for all classes where student is enrolled - "View All Announcements Student"
-                //view document - "View Document"
-                //teacher creating class "Create Class"
-                //user messaging - "Send Message"
-                //view messages - "View Messages"
-                //add student to class -- "Add Student"
-                //update assignment attempt count -- "Update Assignment Attempt Count"
-                //update assignment grade -- "Update Assignment Grade"
-
-
-                //etc
             }
 
             out.writeObject(clientInput);

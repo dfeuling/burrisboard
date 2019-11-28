@@ -80,76 +80,133 @@ class Engine
              else
                  task.clientInput.setErrorMessage("Incorrect credentials.");
 
-        }catch(Exception e){System.out.println("Login error. Error follows: " + e);}
+        }catch(Exception e){System.out.println("Login error for thread " + task.getID() + ". Error follows: " + e);}
     }
 
-    static synchronized void createParent(bTask task)
+    static synchronized void createAccount(bTask task)
     {
-        try{
-            String query = "{?=CALL createGenericParent(?,?,?,?)}";
-            task.bridge.cStatement = task.bridge.con.prepareCall(query);
-            task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
-            task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
-            task.bridge.cStatement.setString(3, task.clientInput.getUser1().getUserFirstName());
-            task.bridge.cStatement.setString(4, task.clientInput.getUser1().getUserLastName());
-            task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
-            task.bridge.cStatement.execute();
+        if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Parent"))
+        {
+            try{
+                String query = "{?=CALL createGenericParent(?,?,?,?)}";
+                task.bridge.cStatement = task.bridge.con.prepareCall(query);
+                task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
+                task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
+                task.bridge.cStatement.setString(3, task.clientInput.getUser1().getUserFirstName());
+                task.bridge.cStatement.setString(4, task.clientInput.getUser1().getUserLastName());
+                task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
+                task.bridge.cStatement.execute();
 
-            if(task.bridge.cStatement.getBoolean("failure"))
-            {
-                System.out.println("Successful Parent created by thread " + task.getID());
-                task.clientInput.setResult(true);
-            }
-            else
-                task.clientInput.setErrorMessage("Database insertion error.");
+                if(task.bridge.cStatement.getBoolean("failure"))
+                {
+                    System.out.println("Successful Parent created by thread " + task.getID());
+                    task.clientInput.setResult(true);
+                }
+                else
+                    task.clientInput.setErrorMessage("Database insertion error.");
 
 
-        }catch(Exception e){System.out.println("Create Parent error. Error follows: " + e);}
+            }catch(Exception e){System.out.println("Create Parent error for thread " + task.getID() + ". Error follows: " + e);}
+        }
+        else if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Student"))
+        {
+            try{
+                String query = "{call createGenericStudent(?,?,?,?,?)}";
+                task.bridge.cStatement = task.bridge.con.prepareCall(query);
+                task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
+                task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
+                task.bridge.cStatement.setString(3, task.clientInput.getUser1().getUserFirstName());
+                task.bridge.cStatement.setString(4, task.clientInput.getUser1().getUserLastName());
+                task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
+                task.bridge.cStatement.execute();
+
+                if(task.bridge.cStatement.getBoolean(5))
+                {
+                    System.out.println("Successful Student created by thread " + task.getID());
+                    task.clientInput.setResult(true);
+                }
+                else
+                    task.clientInput.setErrorMessage("Database insertion error.");
+
+            }catch(Exception e){System.out.println("Create Student error for thread " + task.getID() +". Error follows: " + e);}
+        }
+        else if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Teacher"))
+        {
+            try{
+                String query = "{call createGenericTeacher(?,?,?,?)}";
+                task.bridge.cStatement = task.bridge.con.prepareCall(query);
+                task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
+                task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
+                task.bridge.cStatement.setString(3, task.clientInput.getUser1().getUserFirstName());
+                task.bridge.cStatement.setString(4, task.clientInput.getUser1().getUserLastName());
+                task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
+                task.bridge.cStatement.execute();
+
+                if(task.bridge.cStatement.getBoolean("failure"))
+                {
+                    System.out.println("Successful Teacher created by thread " + task.getID());
+                    task.clientInput.setResult(true);
+                }
+                else
+                    task.clientInput.setErrorMessage("Database insertion error.");
+
+            }catch(Exception e){System.out.println("Create Teacher error for thread " + task.getID() + ". Error follows: " + e);}
+        }
+        else{System.out.println("Account creation opCode error on thread " + task.getID());}
+
     }
 
-    static synchronized void createStudent(bTask task)
+    static void modifyAccount(bTask task)
     {
-        try{
-            String query = "{call createGenericStudent(?,?,?,?,?)}";
-            task.bridge.cStatement = task.bridge.con.prepareCall(query);
-            task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
-            task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
-            task.bridge.cStatement.setString(3, task.clientInput.getUser1().getUserFirstName());
-            task.bridge.cStatement.setString(4, task.clientInput.getUser1().getUserLastName());
-            task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
-            task.bridge.cStatement.execute();
-
-            if(task.bridge.cStatement.getBoolean(5))
-            {
-                System.out.println("Successful Student created by thread " + task.getID());
-                task.clientInput.setResult(true);
-            }
-            else
-                task.clientInput.setErrorMessage("Database insertion error.");
-
-        }catch(Exception e){System.out.println("Create Student error. Error follows: " + e);}
+        try {
+            String query = "UPDATE Users SET Username = " + "\"" + task.clientInput.getUser1().getUserName() + "\"" + ", Pass = " + "\"" + task.clientInput.getUser1().getUserPassword() + "\"" + ", First_Name = " + "\"" + task.clientInput.getUser1().getUserFirstName() + "\"" + ", Last_Name = " + "\"" + task.clientInput.getUser1().getUserLastName() + "\"" + "WHERE User_ ID = " + task.clientInput.getUser1().getUserID();
+            task.bridge.statement.executeUpdate(query);
+        }catch(Exception e){System.out.println("Account modification error for thread " + task.getID() + ". Error follows: " + e);}
     }
 
-    static synchronized void createTeacher(bTask task)
+    static void deleteAccount(bTask task)
     {
         try{
-            String query = "{call createGenericTeacher(?,?,?,?)}";
-            task.bridge.cStatement = task.bridge.con.prepareCall(query);
-            task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
-            task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
-            task.bridge.cStatement.setString(3, task.clientInput.getUser1().getUserFirstName());
-            task.bridge.cStatement.setString(4, task.clientInput.getUser1().getUserLastName());
-            task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
-            task.bridge.cStatement.execute();
+            String userTable = "DELETE FROM users WHERE User_ID = " + task.clientInput.getUser1().getUserID();
 
-            if(task.bridge.cStatement.getBoolean("failure"))
+            if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Parent"))
             {
-                System.out.println("Successful Teacher created by thread " + task.getID());
-                task.clientInput.setResult(true);
-            }
-            else
-                task.clientInput.setErrorMessage("Database insertion error.");
+                String parentTable = "DELETE FROM parent WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+                String relatedTable = "DELETE FROM related_to WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+                String messageTable = "DELETE FROM message WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+                String recipTable = "DELETE FROM recipients WHERE User_ID = " + task.clientInput.getUser1().getUserID();
 
-        }catch(Exception e){System.out.println("Create Teacher error. Error follows: " + e);}
+                task.bridge.statement.executeQuery(recipTable);
+                task.bridge.statement.executeQuery(messageTable);
+                task.bridge.statement.executeQuery(relatedTable);
+                task.bridge.statement.executeQuery(parentTable);
+                task.bridge.statement.executeQuery(userTable);
+
+                System.out.println("Parent deleted by thread " + task.getID());
+            }
+
+            if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Student"))
+            {
+                String studentTable = "DELETE FROM student WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+                String relatedTable = "DELETE FROM related_to WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+                String messageTable = "DELETE FROM message WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+                String recipTable = "DELETE FROM recipients WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+                String attendsTable = "DELETE FROM attends WHERE User_ID = " + task.clientInput.getUser1().getUserID();
+
+                task.bridge.statement.executeQuery(recipTable);
+                task.bridge.statement.executeQuery(messageTable);
+                task.bridge.statement.executeQuery(relatedTable);
+                task.bridge.statement.executeQuery(studentTable);
+                task.bridge.statement.executeQuery(attendsTable);
+                task.bridge.statement.executeQuery(userTable);
+            }
+
+            if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Teacher"))
+            {
+
+            }
+
+        }catch (Exception e){System.out.println("Account deletion modification error for thread " + task.getID() + ". Error follows: " + e);}
+
     }
 }
