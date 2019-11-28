@@ -7,7 +7,7 @@ import java.util.LinkedList;
 public class Parent extends User
 {
     LinkedList<Student> children;
-    boolean linked;
+    boolean linked; //DESIGN MODIFICATION
 
     public LinkedList<Student> getChildren()
     {
@@ -43,5 +43,15 @@ public class Parent extends User
     public void viewDoc(Student studentToViewDoc)
     {
 
+    }
+
+    public void setLinked(boolean s)
+    {
+        this.linked = s;
+    }
+
+    public boolean getLinked()
+    {
+        return this.linked;
     }
 }

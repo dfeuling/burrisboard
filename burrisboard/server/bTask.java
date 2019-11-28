@@ -50,15 +50,26 @@ class bTask implements Runnable
                     burrisboard.server.Engine.modifyAccount(this);
                     break;
 
-                 /*case "Delete Account":
+                 case "Delete Account":
                     burrisboard.server.Engine.deleteAccount(this);
-                    //delete from all tables based on user id
                     break;
-                  */
 
                  /*case "Link Parent to Student":
                     burrisboard.server.Engine.linkParentToStudent(this);
                  */
+
+                 /*case "Link Student to Parent":
+                    burrisboard.server.Engine.linkStudentToParent(this);
+                 */
+
+                case "Teacher Link":
+                    burrisboard.server.Engine.teacherLink(this);
+                    break;
+
+                case "Teacher UnLink":
+                    burrisboard.server.Engine.teacherUnLink(this);
+                    break;
+
 
                  default:
                      System.out.println("opCode not recognized by thread " + this.getID());

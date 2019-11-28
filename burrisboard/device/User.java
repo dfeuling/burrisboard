@@ -1,6 +1,7 @@
 package burrisboard.device;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 //Super class for every possible registered user type of the application
 //Dependencies: Document
@@ -31,6 +32,7 @@ public class User implements Serializable
     String userFirstName;
     String userLastName;
     Role userType;
+    LinkedList<Message> messages; //DESIGN MODIFICATION
 
     public String getUserName()
     {
@@ -62,6 +64,10 @@ public class User implements Serializable
         return this.userType;
     }
 
+    public LinkedList<Message> getMessages() {
+        return messages;
+    }
+
     public void setUserType(Role s)
     {
         this.userType = s;
@@ -91,6 +97,7 @@ public class User implements Serializable
     {
         this.userLastName = s;
     }
+
 
     private void viewDoc(Document docToView)
     {
