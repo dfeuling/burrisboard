@@ -3,6 +3,7 @@ package burrisboard.server;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.sql.Types;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -128,7 +129,7 @@ class Engine
         if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Parent"))
         {
             try{
-                String query = "{?=CALL createGenericParent(?,?,?,?)}";
+                String query = "{?=CALL createGenericParent(?,?,?,?,?)}";
                 task.bridge.cStatement = task.bridge.con.prepareCall(query);
                 task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
                 task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
@@ -137,7 +138,7 @@ class Engine
                 task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
                 task.bridge.cStatement.execute();
 
-                if(task.bridge.cStatement.getBoolean("failure"))
+                if(!task.bridge.cStatement.getBoolean("failure"))
                 {
                     System.out.println("Successful Parent created by thread " + task.getID());
                     task.clientInput.setResult(true);
@@ -160,7 +161,7 @@ class Engine
                 task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
                 task.bridge.cStatement.execute();
 
-                if(task.bridge.cStatement.getBoolean(5))
+                if(!task.bridge.cStatement.getBoolean(5))
                 {
                     System.out.println("Successful Student created by thread " + task.getID());
                     task.clientInput.setResult(true);
@@ -173,7 +174,7 @@ class Engine
         else if(task.clientInput.getUser1().getUserType() == User.Role.valueOf("Teacher"))
         {
             try{
-                String query = "{call createGenericTeacher(?,?,?,?)}";
+                String query = "{call createGenericTeacher(?,?,?,?,?)}";
                 task.bridge.cStatement = task.bridge.con.prepareCall(query);
                 task.bridge.cStatement.setString(1,task.clientInput.getUser1().getUserName());
                 task.bridge.cStatement.setString(2,task.clientInput.getUser1().getUserPassword());
@@ -182,7 +183,7 @@ class Engine
                 task.bridge.cStatement.registerOutParameter(5, Types.BOOLEAN);
                 task.bridge.cStatement.execute();
 
-                if(task.bridge.cStatement.getBoolean("failure"))
+                if(!task.bridge.cStatement.getBoolean("failure"))
                 {
                     System.out.println("Successful Teacher created by thread " + task.getID());
                     task.clientInput.setResult(true);
@@ -222,6 +223,7 @@ class Engine
                 task.bridge.statement.executeQuery(parentTable);
                 task.bridge.statement.executeQuery(userTable);
 
+                task.clientInput.setResult(true);
                 System.out.println("Parent deleted by thread " + task.getID());
             }
 
@@ -240,6 +242,7 @@ class Engine
                 task.bridge.statement.executeQuery(attendsTable);
                 task.bridge.statement.executeQuery(userTable);
 
+                task.clientInput.setResult(true);
                 System.out.println("Student deleted by thread " + task.getID());
             }
 
@@ -256,6 +259,7 @@ class Engine
                 task.bridge.statement.executeQuery(teacherTable);
                 task.bridge.statement.executeQuery(userTable);
 
+                task.clientInput.setResult(true);
                 System.out.println("Teacher deleted by thread " + task.getID());
             }
 
@@ -294,5 +298,96 @@ class Engine
 
             //TODO: If the parent still exists in the related_to table, leave linked true. If not, set it false
         }catch(Exception e){System.out.println("Error un-linking student and parent on thread " + task.getID() + ". Error follows: " + e);}
+    }
+
+    static void sendMessage(bTask task)
+    {
+        try{
+            String messageQuery = "{call createMessage(?,?,?,?,?)}";
+            task.bridge.cStatement = task.bridge.con.prepareCall(messageQuery);
+            task.bridge.cStatement.setInt("sender",task.clientInput.getUser1().getUserID());
+            task.bridge.cStatement.setInt("recipient",task.clientInput.getUser2().getUserID());
+            task.bridge.cStatement.setString("subject_line", task.clientInput.getMessage().getSubject());
+            task.bridge.cStatement.setString("body", task.clientInput.getMessage().getBody());
+            task.bridge.cStatement.registerOutParameter("failure", Types.BOOLEAN);
+            task.bridge.cStatement.execute();
+
+
+            if(!task.bridge.cStatement.getBoolean("failure"))
+            {
+                System.out.println("Successful Message created by thread " + task.getID());
+                task.clientInput.setResult(true);
+            }
+            else {
+                task.clientInput.setErrorMessage("Database insertion error.");
+                System.out.println("Database insertion error on thread " + task.getID());
+            }
+
+        }catch(Exception e){System.out.println("Create Message error for thread " + task.getID() + ". Error follows: " + e);}
+    }
+
+    static synchronized void createClass(bTask task)
+    {
+        try{
+            String classQuery = "{call createClass(?,?,?,?,?)}";
+            task.bridge.cStatement = task.bridge.con.prepareCall(classQuery);
+            task.bridge.cStatement.setInt("teacher",task.clientInput.getUser1().getUserID());
+            task.bridge.cStatement.setString("className",task.clientInput.getaClass().getName());
+            task.bridge.cStatement.setInt("gradeLevel", task.clientInput.getaClass().getGradeLevel());
+            task.bridge.cStatement.registerOutParameter("failure", Types.BOOLEAN);
+            task.bridge.cStatement.registerOutParameter("secNum", Types.INTEGER);
+            task.bridge.cStatement.execute();
+
+            if(!task.bridge.cStatement.getBoolean("failure"))
+            {
+                System.out.println("Successful Message created by thread " + task.getID());
+                task.clientInput.getaClass().setSectionNumber(task.bridge.cStatement.getInt("secNum"));
+                task.clientInput.setResult(true);
+            }
+            else {
+                task.clientInput.setErrorMessage("Database insertion error.");
+                System.out.println("Database insertion error on thread " + task.getID());
+            }
+
+        }catch(Exception e){System.out.println("Create Message error for thread " + task.getID() + ". Error follows: " + e);}
+    }
+
+    static void viewMessages(bTask task)
+    {
+        try{
+            String viewMessagesQuery = "SELECT Sent_Message FROM recipients WHERE recipient = " + task.clientInput.getUser1().getUserID();
+            task.bridge.resultSet = task.bridge.statement.executeQuery(viewMessagesQuery);
+            LinkedList<Integer> results = new LinkedList<Integer>();
+
+            while(task.bridge.resultSet.next())
+            {
+                results.add(task.bridge.resultSet.getInt("Sent_Message"));
+            }
+
+            for(int x = 0 ; x < results.size() ; x++)
+            {
+                String viewMessagesTargetedQuery = "SELECT Creator, Subject_Line, Body FROM message WHERE Message_ID = " + results.get(x);
+                task.bridge.resultSet = task.bridge.statement.executeQuery(viewMessagesTargetedQuery);
+                System.out.println("BBBBBBBBB");
+                task.bridge.resultSet.next();
+
+                Message message = new Message();
+                User user = new User();
+
+                task.bridge.resultSetAux = task.bridge.statementAux.executeQuery("SELECT First_Name, Last_Name FROM users WHERE User_ID = " + task.bridge.resultSet.getInt("Creator"));
+                task.bridge.resultSetAux.next();
+
+                user.setUserFirstName(task.bridge.resultSetAux.getString("First_Name"));
+                user.setUserLastName(task.bridge.resultSetAux.getString("Last_Name"));
+
+                message.setSender(user);
+                message.setSubject(task.bridge.resultSet.getString("Subject_Line"));
+                message.setBody(task.bridge.resultSet.getString("Body"));
+                task.clientInput.getUser1().getMessages().add(message);
+            }
+
+            task.clientInput.setResult(true);
+
+        }catch(Exception e){System.out.println("View messages error for thread " + task.getID() + ". Error follows: " + e);}
     }
 }

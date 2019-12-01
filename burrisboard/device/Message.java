@@ -5,9 +5,9 @@ import java.io.Serializable;
 //Represents messages between users
 //Dependencies: User, Document
 //Dependents: User
-class Message implements Serializable
+public class Message implements Serializable
 {
-    Message(User s, User r, String su, String b, Document a)
+    public Message(User s, User r, String su, String b, Document a)
     {
         this.sender = s;
         this.recipient = r;
@@ -16,7 +16,7 @@ class Message implements Serializable
         this.attachment = a;
     }
 
-    Message()
+    public Message()
     {}
 
 
@@ -25,6 +25,47 @@ class Message implements Serializable
     String subject;
     String body;
     Document attachment;
+    int messageID;
+
+    public void setMessageID(int id)
+    {
+        this.messageID = id;
+    }
+
+    public int getMessageID()
+    {
+        return messageID;
+    }
+
+    public void setSubject(String s)
+    {
+        this.subject = s;
+    }
+
+    public String getSubject()
+    {
+        return this.subject;
+    }
+
+    public void setBody(String s)
+    {
+        this.body = s;
+    }
+
+    public String getBody()
+    {
+        return this.body;
+    }
+
+    public void setSender(User u)
+    {
+        this.sender = u;
+    }
+
+    public void setRecipient(User u)
+    {
+        this.recipient = u;
+    }
 
     public void delete()
     {

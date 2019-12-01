@@ -70,6 +70,17 @@ class bTask implements Runnable
                     burrisboard.server.Engine.teacherUnLink(this);
                     break;
 
+                case "Send Message":
+                    burrisboard.server.Engine.sendMessage(this);
+                    break;
+
+                case "Create Class":
+                    burrisboard.server.Engine.createClass(this);
+                    break;
+
+                case "View Messages":
+                    burrisboard.server.Engine.viewMessages(this);
+                    break;
 
                  default:
                      System.out.println("opCode not recognized by thread " + this.getID());

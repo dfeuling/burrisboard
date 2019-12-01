@@ -32,7 +32,7 @@ public class User implements Serializable
     String userFirstName;
     String userLastName;
     Role userType;
-    LinkedList<Message> messages; //DESIGN MODIFICATION
+    LinkedList<Message> messages = new LinkedList<>(); //DESIGN MODIFICATION
 
     public String getUserName()
     {
@@ -98,6 +98,9 @@ public class User implements Serializable
         this.userLastName = s;
     }
 
+    public void setMessages(LinkedList<Message> messages) {
+        this.messages = messages;
+    }
 
     private void viewDoc(Document docToView)
     {

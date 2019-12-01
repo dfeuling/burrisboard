@@ -5,14 +5,11 @@ import java.io.Serializable;
 //Container for communication between client, server, and database, with supporting operations
 public class bPackage implements Serializable
 {
-    public bPackage(String op, User u1, User u2, Document d, Message m, bFile f)
+    public bPackage(String op, User u1, User u2)
     {
         this.opCode = op;
         this.user1 = u1;
         this.user2 = u2;
-        this.doc = d;
-        this.message = m;
-        this.File = f;
     }
 
    public bPackage()
@@ -24,6 +21,7 @@ public class bPackage implements Serializable
     Document doc;
     Message message;
     bFile File;
+    Class aClass;
     boolean result = false;
     String errorMessage;
 
@@ -55,6 +53,11 @@ public class bPackage implements Serializable
     public bFile getbFile()
     {
         return this.File;
+    }
+
+    public Class getaClass()
+    {
+        return this.aClass;
     }
 
     public boolean getResult()
@@ -90,6 +93,11 @@ public class bPackage implements Serializable
     public void setMessage(Message m)
     {
         this.message = m;
+    }
+
+    public void setaClass(Class c)
+    {
+        this.aClass = c;
     }
 
     public void setResult(boolean r)

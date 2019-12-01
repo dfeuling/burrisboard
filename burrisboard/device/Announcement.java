@@ -20,6 +20,17 @@ class Announcement implements Serializable
     Date datePosted; //DESIGN MODIFICATION 2: Clarity
     Class bbclass; //DESIGN MODIFICATION 1: Java reserves 'class'
     String body;
+    int announcementID;
+
+    public void setAnnouncementID(int id)
+    {
+        this.announcementID = id;
+    }
+
+    public int getAnnouncementID()
+    {
+        return this.announcementID;
+    }
 
     public void post(Class classToPostTo)
     {
