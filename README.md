@@ -1,4 +1,4 @@
-# BurrisBoard, an Android Application
+# BurrisBoard
 SHSU COSC 4319 Project, Fall 2019
 
 **Team Members:**
